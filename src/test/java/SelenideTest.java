@@ -15,7 +15,7 @@ public class SelenideTest {
     }
 
     @Test
-    void taskNumberFour() {
+    void testNumberFour() {
         open("https://github.com/selenide/selenide");
         $("[id=wiki-tab]").click();
         $("a[href='/selenide/selenide/wiki/SoftAssertions']").shouldBe(visible).shouldHave(Condition.text("Soft Assertions"));
