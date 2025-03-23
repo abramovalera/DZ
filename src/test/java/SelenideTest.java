@@ -48,6 +48,8 @@ public class SelenideTest {
     @Test
     void testNumberFivePointTwo() {
         open("https://the-internet.herokuapp.com/drag_and_drop");
+        $("#column-a").shouldHave(text("A"));
+        $("#column-b").shouldHave(text("B"));
         actions().moveToElement($("#column-a")) //# используется для выбора элемента по его идентификатору (id)
                 .clickAndHold()
                 .moveByOffset(250, 0)
