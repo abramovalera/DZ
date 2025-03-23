@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class SelenideTest {
@@ -34,5 +35,28 @@ public class SelenideTest {
                 "}"));
 
     }
+
+    @Test
+    void testNumberFive() {
+        open("https://github.com/");
+        $(".HeaderMenu-nav").find(byText("Solutions")).hover();
+        // элемент по классу, селектор должен начинаться с точки
+        $(".HeaderMenu-nav").find(byText("Enterprises")).click();
+        $(".application-main").shouldHave(text("The AI-powered developer platform"));
+
+    }
+    @Test
+    void testNumberFivePointTwo() {
+        open("https://the-internet.herokuapp.com/drag_and_drop");
+        actions().moveToElement($("#column-a")) //# используется для выбора элемента по его идентификатору (id)
+                .clickAndHold()
+                .moveByOffset(250, 0)
+                .release()
+                .perform();
+        $("#column-a").shouldHave(text("B"));
+        $("#column-b").shouldHave(text("A"));
+    }
 }
+
+
 
