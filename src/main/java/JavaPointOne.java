@@ -35,7 +35,7 @@ public class JavaPointOne {
         System.out.println("Яблок больше, чем груш = " + (apple > pears));
 
         // Диапазон float ( непонятна, разобраться потом)
-        System.out.println("Шляпа с мин и мах значениями:");
+        System.out.println("MIN and MAX VALUE:");
         System.out.println("Диапазон float:");
         System.out.println("Минимальное положительное значение: " + Float.MIN_VALUE);
         System.out.println("Максимальное значение: " + Float.MAX_VALUE);
