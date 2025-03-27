@@ -32,7 +32,7 @@ public class RegistrationPage {
         return this;
     }
 
-    // Методы заполнения полей
+    // Методы
     public RegistrationPage setFirstName(String value) {
         firstName.setValue(value);
         return this;
@@ -120,11 +120,6 @@ public class RegistrationPage {
         resultsTable.$(byText(fieldName))
                 .parent().lastChild()
                 .shouldHave(text(expectedValue));
-        return this;
-    }
-
-    public RegistrationPage uploadPicture(String fileName) {
-        $("#uploadPicture").uploadFromClasspath(fileName);
         return this;
     }
 

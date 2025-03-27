@@ -30,7 +30,7 @@ public class RegistrationWithPageObjectsTests {
                 .setSubject("Physics")
                 .setHobby("Sports")
                 .setHobby("Music")
-                .uploadPicture("test_file_sample.jpg")
+                .uploadFile("sample.jpg")
                 .setAddress("Moscow, Red Square 1")
                 .setStateAndCity("NCR", "Delhi")
                 .submit()
