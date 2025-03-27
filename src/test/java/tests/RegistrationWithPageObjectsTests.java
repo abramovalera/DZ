@@ -1,56 +1,72 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
 public class RegistrationWithPageObjectsTests {
 
-    // Настройки перед всеми тестами
     @BeforeAll
     static void setup() {
-        Configuration.browserSize = "1920x1080"; // Размер окна браузера
-        Configuration.baseUrl = "https://demoqa.com"; //  URL
-        Configuration.timeout = 10000; // Ожидание  10 секунд
+        WebDriverManager.chromedriver().setup();
+//        Configuration.browserSize = "1920x1080";
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.timeout = 20000;
     }
 
-    // Полное заполнение формы
     @Test
     void fullRegistrationTest() {
         new RegistrationPage()
-                .openPage() // 1. Открываем страницу
-                .setFirstName("Alex") // 2. Заполняем имя
-                .setLastName("Egorov") // 3. Заполняем фамилию
-                .setEmail("alex@egorov.com") // 4. Заполняем email
-                .setGender("Male") // 5. Выбираем пол
-                .setPhone("1234567890") // 6. Вводим телефон
-                .submit() // 7. Отправляем форму
-                .verifyModalAppears() // 8. Проверяем модальное окно
-                .verifyResult("Student Name", "Alex Egorov") // 9. Проверяем имя
-                .verifyResult("Student Email", "alex@egorov.com"); // 10. Проверяем email
+                .openPage()
+                .setFirstName("Alex")
+                .setLastName("Egorov")
+                .setEmail("alex@egorov.com")
+                .setGender("Male")
+                .setPhone("1234567890")
+                .setBirthDate("15", "May", "1990")
+                .setSubject("Maths")
+                .setSubject("Physics")
+                .setHobby("Sports")
+                .setHobby("Music")
+                .uploadPicture("test_file_sample.jpg")
+                .setAddress("Moscow, Red Square 1")
+                .setStateAndCity("NCR", "Delhi")
+                .submit()
+                .verifyModalAppears()
+                .verifyResult("Student Name", "Alex Egorov")
+                .verifyResult("Student Email", "alex@egorov.com")
+                .verifyResult("Gender", "Male")
+                .verifyResult("Mobile", "1234567890")
+                .verifyResult("Date of Birth", "15 May,1990")
+                .verifyResult("Subjects", "Maths, Physics")
+                .verifyResult("Hobbies", "Sports, Music")
+                .verifyResult("Picture", "sample.jpg")
+                .verifyResult("Address", "Moscow, Red Square 1")
+                .verifyResult("State and City", "NCR Delhi");
     }
 
-    //  Минимальное заполнение
     @Test
     void minimalRegistrationTest() {
         new RegistrationPage()
                 .openPage()
-                .setFirstName("Alex") // Только имя
-                .setLastName("Egorov") // и фамилия
-                .setGender("Male") // и пол
-                .setPhone("1234567890") // и телефон
+                .setFirstName("Alex")
+                .setLastName("Egorov")
+                .setGender("Male")
+                .setPhone("1234567890")
                 .submit()
                 .verifyModalAppears()
-                .verifyResult("Student Name", "Alex Egorov"); // Проверяем только имя
+                .verifyResult("Student Name", "Alex Egorov")
+                .verifyResult("Gender", "Male")
+                .verifyResult("Mobile", "1234567890");
     }
 
-    // Негативный
     @Test
     void negativeRegistrationTest() {
         new RegistrationPage()
                 .openPage()
-                .submit() // Отправляем пустую форму
-                .checkRequiredFields(); // Проверяем подсветку ошибок
+                .submit()
+                .checkRequiredFields();
     }
 }

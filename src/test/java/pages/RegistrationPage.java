@@ -1,83 +1,131 @@
-
-        package pages;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
-    // Элементы страницы
+    // Локаторы элементов
     private final SelenideElement
             firstName = $("#firstName"),
             lastName = $("#lastName"),
             email = $("#userEmail"),
-            gender = $("#genterWrapper"),
+            genderWrapper = $("#genterWrapper"),
             phone = $("#userNumber"),
-            submit = $("#submit"),
+            dateOfBirthInput = $("#dateOfBirthInput"),
+            subjectsInput = $("#subjectsInput"),
+            uploadPicture = $("#uploadPicture"),
+            address = $("#currentAddress"),
+            state = $("#state"),
+            city = $("#city"),
+            submitBtn = $("#submit"),
             modal = $(".modal-dialog"),
             resultsTable = $(".table-responsive");
 
-    // Открытие страницы
     public RegistrationPage openPage() {
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         return this;
     }
 
-        // Заполняем имя
+    // Методы заполнения полей
     public RegistrationPage setFirstName(String value) {
-        firstName.setValue(value); // Вводим текст в поле
+        firstName.setValue(value);
         return this;
     }
 
-    // Заполняем фамилию
     public RegistrationPage setLastName(String value) {
         lastName.setValue(value);
         return this;
     }
 
-    // Заполняем email
     public RegistrationPage setEmail(String value) {
         email.setValue(value);
         return this;
     }
 
-    // Выбираем пол (Male/Female/Other)
-    public RegistrationPage setGender(String value) {
-        gender.$(byText(value)).click(); // Ищем текст и кликаем
+    public RegistrationPage setGender(String gender) {
+        genderWrapper.$(byText(gender)).click();
         return this;
     }
 
-    // Заполняем телефон
     public RegistrationPage setPhone(String value) {
         phone.setValue(value);
         return this;
     }
 
-    // Отправляем форму
+    public RegistrationPage setBirthDate(String day, String month, String year) {
+        dateOfBirthInput.click();
+        $(".react-datepicker__month-select").selectOption(month);
+        $(".react-datepicker__year-select").selectOption(year);
+        $(String.format(".react-datepicker__day--0%s:not(.react-datepicker__day--outside-month)", day)).click();
+        return this;
+    }
+
+    public RegistrationPage setSubject(String subject) {
+        subjectsInput.setValue(subject).pressEnter();
+        return this;
+    }
+
+    public RegistrationPage setHobby(String hobby) {
+        $(byText(hobby)).click();
+        return this;
+    }
+
+    public RegistrationPage uploadFile(String filePath) {
+        uploadPicture.uploadFromClasspath(filePath);
+        return this;
+    }
+
+    public RegistrationPage setAddress(String value) {
+        address.setValue(value);
+        return this;
+    }
+
+    public RegistrationPage setStateAndCity(String stateValue, String cityValue) {
+        state.click();
+        $(byText(stateValue)).click();
+        city.click();
+        $(byText(cityValue)).click();
+        return this;
+    }
+
     public RegistrationPage submit() {
-        submit.click(); // Кликаем по кнопке Submit
+        submitBtn.click();
         return this;
     }
 
-    // Проверяем, что модальное окно появилось
+    // Проверка модального окна
     public RegistrationPage verifyModalAppears() {
-        modal.shouldBe(visible); // Ждем пока окно станет видимым
+        modal.shouldBe(visible, Duration.ofSeconds(5));
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         return this;
     }
 
-    // Проверяем конкретное значение в таблице результатов
-    public RegistrationPage verifyResult(String key, String value) {
-        // Ищем ячейку с текстом key и проверяем соседнюю ячейку на значение value
-        resultsTable.$(byText(key)).parent().shouldHave(text(value));
-        return this;
-    }
-
-    // Проверяем, что обязательные поля подсвечены красным
+    // Проверка обязательных полей
     public RegistrationPage checkRequiredFields() {
-        // Проверяем цвет рамки у обязательных полей
-        firstName.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
-        lastName.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+        String errorColor = "rgb(220, 53, 69)";
+        firstName.shouldHave(cssValue("border-color", errorColor));
+        lastName.shouldHave(cssValue("border-color", errorColor));
+        phone.shouldHave(cssValue("border-color", errorColor));
         return this;
     }
+
+    // Проверка результатов
+    public RegistrationPage verifyResult(String fieldName, String expectedValue) {
+        resultsTable.$(byText(fieldName))
+                .parent().lastChild()
+                .shouldHave(text(expectedValue));
+        return this;
+    }
+
+    public RegistrationPage uploadPicture(String fileName) {
+        $("#uploadPicture").uploadFromClasspath(fileName);
+        return this;
+    }
+
 }
