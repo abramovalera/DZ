@@ -117,7 +117,7 @@ public class RegistrationPage {
 
     }
 
-    // Проверка результатов
+    // Проверка результатов ( если увидите этот коментарий, мне не понятно как этот метод работает, пользовалься нейронкой но все равно оч не понятно, напишите краткий комент по оптимизации или оъяснению ок или нет это)
     public RegistrationPage verifyResult(String fieldName, String expectedValue) {
         resultsTable.$(byText(fieldName))
                 .parent().lastChild()
