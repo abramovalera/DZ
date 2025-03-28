@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
-    // Локаторы элементов
+    // Локаторы
     private final SelenideElement
             firstName = $("#firstName"),
             lastName = $("#lastName"),

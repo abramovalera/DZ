@@ -61,7 +61,6 @@ public class RegistrationWithPageObjectsTests {
                 .verifyResult("Gender", "Male")
                 .verifyResult("Mobile", "1234567890");
     }
-
     @Test
     void negativeRegistrationTest() {
         new RegistrationPage()
