@@ -106,13 +106,15 @@ public class RegistrationPage {
         return this;
     }
 
-    // Проверка обязательных полей
+    // Проверка обязательных полей (красные борда проверяяем)
     public RegistrationPage checkRequiredFields() {
         String errorColor = "rgb(220, 53, 69)";
         firstName.shouldHave(cssValue("border-color", errorColor));
         lastName.shouldHave(cssValue("border-color", errorColor));
         phone.shouldHave(cssValue("border-color", errorColor));
+        genderWrapper.shouldHave(cssValue("border-color", errorColor));
         return this;
+
     }
 
     // Проверка результатов
