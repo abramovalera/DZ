@@ -1,40 +1,21 @@
 plugins {
-    id 'java-library'
-    id 'idea'
+    id 'java'
 }
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-    options.compilerArgs += ['-parameters']
-}
-
 dependencies {
-    // Основная зависимость Selenide (рекомендация 8: WebDriverManager не нужен)
     testImplementation 'com.codeborne:selenide:7.2.1'
-
-    // JUnit 5 агрегированная зависимость (рекомендация 9)
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-
-    // Логирование (можно оставить для подавления предупреждений)
-    testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.9'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.12'
 }
 
 test {
     useJUnitPlatform()
-    systemProperties = [
-            'selenide.headless': 'true',
-            'selenide.pageLoadStrategy': 'eager',
-            'selenide.timeout': '4000'         // Рекомендация 6: уменьшить до 4 сек
-    ]
-
-    testLogging {
-        events "passed", "skipped", "failed"
-        showStandardStreams = true
-    }
-
-    maxParallelForks = Runtime.runtime.availableProcessors()
 }

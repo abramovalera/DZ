@@ -36,7 +36,7 @@ public class RegistrationWithPageObjectsTests {
                 .setCity("Delhi")
                 .submit()
                 .verifyModalAppears()
-                .verifyResult("Student Name", "Alex Egorov") // Использует ResultsTable
+                .verifyResult("Student Name", "Alex Egorov")
                 .verifyResult("Student Email", "alex@egorov.com")
                 .verifyResult("Gender", "Male")
                 .verifyResult("Mobile", "1234567890")

@@ -11,7 +11,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class RegistrationPage {
     private static final String ERROR_COLOR = "rgb(220, 53, 69)";
 
-    // Локаторы
     private final SelenideElement
             firstName = $("#firstName"),
             lastName = $("#lastName"),
@@ -27,6 +26,7 @@ public class RegistrationPage {
             submitBtn = $("#submit"),
             modal = $(".modal-dialog");
 
+    // Компоненты
     private final ResultsTable resultsTable = new ResultsTable();
     private final DatePicker datePicker = new DatePicker();
 
@@ -66,6 +66,7 @@ public class RegistrationPage {
         return this;
     }
 
+    // Используем компонент DatePicker
     public RegistrationPage setBirthDate(String day, String month, String year) {
         dateOfBirthInput.click();
         datePicker.selectMonth(month)
@@ -117,7 +118,6 @@ public class RegistrationPage {
         return this;
     }
 
-    // Используем компонент ResultsTable (рекомендация 4)
     public RegistrationPage verifyResult(String fieldName, String expectedValue) {
         resultsTable.verifyResult(fieldName, expectedValue);
         return this;
