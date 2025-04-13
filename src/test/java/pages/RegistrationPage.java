@@ -7,7 +7,6 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-
 public class RegistrationPage {
     private static final String ERROR_COLOR = "rgb(220, 53, 69)";
 
@@ -32,12 +31,14 @@ public class RegistrationPage {
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
+        removeBanners();
         return this;
     }
 
+
     public RegistrationPage removeBanners() {
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
+        executeJavaScript("document.getElementById('fixedban')?.remove()");
+        executeJavaScript("document.querySelector('footer')?.remove()");
         return this;
     }
 

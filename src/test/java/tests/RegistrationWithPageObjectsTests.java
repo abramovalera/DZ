@@ -30,7 +30,7 @@ public class RegistrationWithPageObjectsTests {
                 .setSubject("Physics")
                 .setHobby("Sports")
                 .setHobby("Music")
-                .uploadFile("sample.jpg")
+                .uploadFile("3.jpg")
                 .setAddress("Moscow, Red Square 1")
                 .setState("NCR")
                 .setCity("Delhi")
@@ -43,7 +43,7 @@ public class RegistrationWithPageObjectsTests {
                 .verifyResult("Date of Birth", "15 May,1990")
                 .verifyResult("Subjects", "Maths, Physics")
                 .verifyResult("Hobbies", "Sports, Music")
-                .verifyResult("Picture", "sample.jpg")
+                .verifyResult("Picture", "3.jpg")
                 .verifyResult("Address", "Moscow, Red Square 1")
                 .verifyResult("State and City", "NCR Delhi");
     }
