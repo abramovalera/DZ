@@ -2,18 +2,14 @@ plugins {
     id 'java'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
-
 repositories {
-    mavenCentral()
+    mavenCentral() // Важно: репозиторий должен быть указан
 }
 
 dependencies {
-    testImplementation 'com.codeborne:selenide:7.2.1'
-    testImplementation 'com.github.javafaker:javafaker:1.0.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-    testImplementation 'org.slf4j:slf4j-simple:2.0.12'
+    implementation 'com.github.javafaker:javafaker:1.0.2' // Используйте актуальную версию
+    testImplementation 'com.codeborne:selenide:6.19.1',
+            'org.junit.jupiter:junit-jupiter:5.10.0'
 }
 
 test {

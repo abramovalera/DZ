@@ -37,8 +37,8 @@ public class RegistrationPage {
 
 
     public RegistrationPage removeBanners() {
-        executeJavaScript("document.getElementById('fixedban')?.remove()");
-        executeJavaScript("document.querySelector('footer')?.remove()");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         return this;
     }
 

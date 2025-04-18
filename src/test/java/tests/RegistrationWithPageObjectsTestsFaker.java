@@ -1,21 +1,18 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
-import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import utils.RandomUtils;
-import java.util.Locale;
 
 public class RegistrationWithPageObjectsTestsFaker {
-    Faker faker = new Faker(new Locale("en"));
-    String
-            firstName = faker.name().firstName(),
-            lastName = faker.name().lastName(),
-            userEmail = faker.internet().emailAddress(),
+    private final String
+            firstName = RandomUtils.getRandomFirstName(),
+            lastName = RandomUtils.getRandomLastName(),
+            userEmail = RandomUtils.getRandomEmail(),
             phoneNumber = RandomUtils.getRandomPhone(),
-            streetAddress = faker.address().streetAddress(),
+            streetAddress = RandomUtils.getRandomStreetAddress(),
             gender = RandomUtils.getRandomGender(),
             birthDay = RandomUtils.getRandomBirthDay(),
             birthMonth = RandomUtils.getRandomBirthMonth(),
@@ -24,7 +21,7 @@ public class RegistrationWithPageObjectsTestsFaker {
             hobby = RandomUtils.getRandomHobby(),
             fileName = RandomUtils.getRandomFile(),
             state = RandomUtils.getRandomState(),
-            city = RandomUtils.getRandomCity(state); //  Город зависит от штата state
+            city = RandomUtils.getRandomCity(state);
 
     @BeforeAll
     static void setup() {
