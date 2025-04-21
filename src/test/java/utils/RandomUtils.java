@@ -2,19 +2,15 @@ package utils;
 
 import com.github.javafaker.Faker;
 import java.util.Locale;
-import java.util.Map;
-import java.util.HashMap;
 
 public class RandomUtils {
     private static final Faker faker = new Faker(new Locale("en"));
-    private static final Map<String, String[]> statesAndCities = new HashMap<>();
-
-    static {
-        statesAndCities.put("NCR", new String[]{"Delhi", "Gurgaon", "Noida"});
-        statesAndCities.put("Uttar Pradesh", new String[]{"Agra", "Lucknow", "Merrut"});
-        statesAndCities.put("Haryana", new String[]{"Karnal", "Panipat"});
-        statesAndCities.put("Rajasthan", new String[]{"Jaipur", "Jaiselmer"});
-    }
+    private static final String[] STATES = {
+            "NCR",
+            "Uttar Pradesh",
+            "Haryana",
+            "Rajasthan"
+    };
 
     public static String getRandomFirstName() {
         return faker.name().firstName();
@@ -29,7 +25,7 @@ public class RandomUtils {
     }
 
     public static String getRandomPhone() {
-        return "9" + faker.number().digits(9); // Пример: 9876543210
+        return "9" + faker.number().digits(9); // пример: 9876543210
     }
 
     public static String getRandomStreetAddress() {
@@ -45,8 +41,10 @@ public class RandomUtils {
     }
 
     public static String getRandomBirthMonth() {
-        return faker.options().option("January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December");
+        return faker.options().option(
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+        );
     }
 
     public static String getRandomBirthYear() {
@@ -65,11 +63,30 @@ public class RandomUtils {
         return "1.jpg";
     }
 
+    /**
+     * Случайный штат из заранее заданного списка.
+     */
     public static String getRandomState() {
-        return faker.options().option(statesAndCities.keySet().toArray(new String[0]));
+        return faker.options().option(STATES);
     }
 
+    /**
+     * Случайный город для переданного штата.
+     * @param state один из значений getRandomState()
+     * @return имя города
+     */
     public static String getRandomCity(String state) {
-        return faker.options().option(statesAndCities.get(state));
+        switch (state) {
+            case "NCR":
+                return faker.options().option("Delhi", "Gurgaon", "Noida");
+            case "Uttar Pradesh":
+                return faker.options().option("Agra", "Lucknow", "Merrut");
+            case "Haryana":
+                return faker.options().option("Karnal", "Panipat");
+            case "Rajasthan":
+                return faker.options().option("Jaipur", "Jaiselmer");
+            default:
+                throw new IllegalArgumentException("Unknown state: " + state);
+        }
     }
 }
